@@ -1,0 +1,17 @@
+Γ := {'g', '(', ')', '&', 'a', 'b', 'n', '!', '|', 'I', ':',
+	'0', '1', '2', '3', '4', '5','6', '7','8', '9', '=', '<', '>',
+	'_', '+', '-', '*', '/', '%', 'm', 'r', '@', '¿'} //alfabeto del output
+
+¿ : se inicia una funcion y se da segidamente el nombre de estado (¿ nombre ...)
+@ : representa el inicio y el fin de la definicion de parametros de entrada de una funcion (nombre @ parametros @)
+: : representa que se está creando una variable y se le está asignando un valor inicial seguidamente (nombre : valor)
+! : representa que tipo de variable va a ser una variable (nombre ! tipo)
+& : representa la separacion entre parametros (param & param & param ...)
+_ : representa las 3 partes de un if (if _ <condicion> _ <then> _ <else>)
+| : representa el begin y end del programa
+a,b,0..9 : son valores y variables por lo que se dejaron igual
+I : representa el inicio de un if
+g : nombre de la funcion
+=,<,>,+,-,*,/,%,m : representan operaciones (m es mod)
+n : representa el tipo de variable integer
+r : nombre de la variable de salida
