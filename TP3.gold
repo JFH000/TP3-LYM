@@ -1,0 +1,218 @@
+using gold.**
+
+procedure main(args:String[]) begin
+	Q := {"Err", "A", "B", "C", "D", "E", "F", "G", "H", "H1", "H2", "H3", "I", "J", "K",
+	"L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", 
+	"Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK"} //Estados
+	
+	Σ := {'f', 'g', '(', ')', 'a', 'b', ',', 'n', ':', ';', 'i',
+	'=', '<', '>', '0', '1', '2', '3', '4', '5','6', '7','8', '9', '+',
+	'-', '*', '/', 'm', '%', 't', '=', 'l', 'e', 'r'} // alfabeto del input
+	
+	Γ := {'g', '(', ')', '&', 'a', 'b', 'n', '!', '|', 'I', ':',
+	'0', '1', '2', '3', '4', '5','6', '7','8', '9', '=', '<', '>',
+	'_', '+', '-', '*', '/', '%', 'm', 'r', '@', '¿'} //alfabeto del output
+	
+	q := "A" //estado inicial
+	F := {"AK"} //estados finales
+	
+	A := GDeterministicTransducer(Q, Σ, Γ, q, F, δ, g, h)
+	GAutomataFrame.show(A)
+end
+
+function δ(q, o) begin //transicion de los estados
+
+	if q=="A" && o=='f' then
+		return "B"
+	elseif q=="B" && o=='g' then
+		return "C"
+	elseif q=="C" && o=='(' then
+		return "D"
+	elseif q=="D" then
+		if o=='a' || o=='b' then
+			return "E"
+		elseif o==')' then
+			return "H"
+		else
+			return "Err"
+		end
+	elseif q=="E" then
+		if o==',' then
+			return "F"
+		elseif o==':' then
+			return "G"
+		elseif o==')' then
+			return "H"
+		else
+			return "Err"
+		end
+	elseif q=="F" && (o=='a' || o=='b') then
+		return "E"
+	elseif q=="G" && o=='i' then
+		return "E"
+	elseif q=="H" then
+		if o=='r' then
+			return "H1"
+		elseif o==';' then
+			return "I"
+		else
+			return "Err"
+		end
+
+	elseif q=="H1" && o==':' then
+		return "H2"
+	elseif q=="H2" && o=='i' then
+		return "H3"
+	elseif q="H3" && o==';' then
+		return "I"
+	elseif q=="I" && o=='b' then
+		return "J"
+	elseif q=="J" then
+		if o=='e' then
+			return "AK"
+		elseif o=='i' then
+			return "K"
+		else
+			return "Err"
+		end
+	elseif q=="K" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "L"
+	elseif q=="L" && (o=='=' || o=='<' || o=='>') then
+		return "M"
+	elseif q=="M" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "N"
+	elseif q=="N" then
+		if o=='+' || o=='-' || o=='*' || o=='/' || o=='m' || o=='%' then
+			return "O"
+		elseif o=='t' then
+			return "R"
+		else
+			return "Err"
+		end
+	elseif q=="O" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "P"
+	elseif q=="P" then
+		if o=='t' then
+			return "R"
+		elseif o==',' then
+			return "Q"
+		else
+			return "Err"
+		end
+	elseif q=="Q" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "N"
+	elseif q=="R" && (o=='a' || o=='b' || o=='g')then
+		return "S"
+	elseif q=="S" && o==':' then
+		return "T"
+	elseif q=="T" && o=='=' then
+		return "U"
+	elseif q=="U" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "V"
+	elseif q=="V" then
+		if o=='e' then
+			return "Z"
+		elseif o=='+' || o=='-' || o=='*' || o=='/' || o=='m' || o=='%' then
+			return "W"
+		else
+			return "Err"
+		end
+	elseif q=="W" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "X"
+	elseif q=="X" then
+		if o==',' then
+			return "Y"
+		elseif o=='e' then
+			return "Z"
+		else
+			return "Err"
+		end
+	elseif q=="Y" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "V"
+	elseif q=="Z" && o=='g' then
+		return "AA"
+	elseif q=="AA" && o==':' then
+		return "AB"
+	elseif q=="AB" && o=='=' then
+		return "AC"
+	elseif q=="AC" && o=='g' then
+		return "AD"
+	elseif q=="AD" && o=='(' then
+		return "AE"
+	elseif q=="AE" then
+		if o==')' then
+			return "AJ"
+		elseif (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+			return "AF"
+		else
+			return "Err"
+		end
+	elseif q=="AF" then
+		if o==')' then
+			return "AJ"
+		elseif o=='+' || o=='-' || o=='*' || o=='/' || o=='m' || o=='%' then
+			return "AG"
+		elseif o==',' then
+			return "AI"
+		else
+			return "Err"
+		end
+	elseif q=="AG" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "AH"
+	elseif q=="AH" then
+		if o==')' then
+			return "AJ"
+		elseif o==',' then
+			return "AI"
+		else
+			return "Err"
+		end
+	elseif q=="AI" && (o=='a' || o=='b' || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || o=='5' || o=='6' || o=='7' || o=='8' || o=='9') then
+		return "AF"
+	elseif q=="AJ" && o=='e' then
+		return "AK"
+⧐	elseif q=="AK" && o=='f' then
+⧐		return "B"
+
+	else
+		return "Err"
+	end
+end
+
+function g(q) begin //output de los estados
+	if q=="K" || q=="R" || q=="Z" then
+		return '_'
+	else
+		return λ
+	end
+end
+
+
+function h(q, o) begin //output de las transiciones
+	if o=='g' || o=='a' || (q != "I" && o=='b') || o=='0' || o=='1' || o=='2' || o=='3' || o=='4' || 
+		o=='5' || o=='6' || o=='7' || o=='8' || o=='9' || o=='+' || o=='-' || o=='*' || o=='/' || o=='m' || 
+		o=='%' || o=='+' || o=='-' || o=='*' || o=='/' || o=='m' || o=='%' || o==':' || o=='r'  then
+		return o
+	elseif o==',' then
+		return '&'
+	elseif (q=="G" || q=="H2") && o=='i' then //integer
+		return "n"
+	elseif (q=="E" || q=="H2") && o==':' then
+		return '!'
+	elseif o=='f' then
+		return '¿'
+	elseif o=='(' || o==')' then
+		return '@'
+	elseif 	q=="I" && o=='b' then
+		return '|'
+	elseif (q=="J" || q=="AJ") && o=='e' then
+		return '|'
+	elseif q=="J" && o=='i' then
+		return 'I'
+	elseif q=="L" && (o=='=' || o=='<' || o=='>') then
+		return o
+	
+	else
+		return λ
+	end
+end
